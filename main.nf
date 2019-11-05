@@ -23,7 +23,13 @@ Channel
   .ifEmpty { exit 1, "Intensities dir not found ${params.intensities_dir}" }
   .set { intensities_dir }
 
+// Initialise variable to store optional parameters
+extra_flags = ""
 // Set value parameters
+if ( params.ignore_missing_bcls ) { extra_flags += " --ignore-missing-bcls" }
+if ( params.ignore_missing_filter ) { extra_flags += " --ignore-missing-filter" }
+if ( params.ignore_missing_positions ) { extra_flags += " --ignore-missing-positions" }
+if ( params.ignore_missing_controls ) { extra_flags += " --ignore-missing-controls" }
 
 /*--------------------------------------------------
   Run bcl2fastq to convert BCL files to FASTQ
@@ -45,6 +51,6 @@ process bcl2fastq {
   runfolder_dir = params.runfolder_dir.endsWith("no_runfolder_dir.txt") ? '' : "--runfolder-dir ${runfolder_dir}"
   intensities_dir = params.intensities_dir.endsWith("no_intensities_dir.txt") ? '' : "--intensities-dir ${intensities_dir}"
   """
-  bcl2fastq ${input_dir_flag} ${runfolder_dir} ${intensities_dir}
+  bcl2fastq ${input_dir_flag} ${runfolder_dir} ${intensities_dir} ${extraflags}
   """
 }
