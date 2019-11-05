@@ -51,6 +51,6 @@ process bcl2fastq {
   runfolder_dir = params.runfolder_dir.endsWith("no_runfolder_dir.txt") ? '' : "--runfolder-dir ${runfolder_dir}"
   intensities_dir = params.intensities_dir.endsWith("no_intensities_dir.txt") ? '' : "--intensities-dir ${intensities_dir}"
   """
-  bcl2fastq ${input_dir_flag} ${runfolder_dir} ${intensities_dir} ${extraflags}
+  bcl2fastq ${input_dir_flag} ${runfolder_dir} ${intensities_dir} ${extra_flags}
   """
 }
